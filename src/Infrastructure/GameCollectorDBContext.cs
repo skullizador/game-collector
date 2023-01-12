@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="BookmakerServiceDBContext.cs" company="HumbleBets">
+// <copyright file="GameCollectorDBContext.cs" company="HumbleBets">
 //     Copyright (c) HumbleBets. All rights reserved.
 // </copyright>
 // <summary>
-// BookmakerServiceDBContext
+// GameCollectorDBContext
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
