@@ -1,25 +1,48 @@
-var builder = WebApplication.CreateBuilder(args);
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="HumbleBets">
+//     Copyright (c) HumbleBets. All rights reserved.
+// </copyright>
+// <summary>
+// Program
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-// Add services to the container.
+using GameCollector.Presentation.WebAPI;
+using Serilog;
+using Steeltoe.Extensions.Configuration.ConfigServer;
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+WebApplicationBuilder builder = CreateBuilder(args);
+
+Startup startup = new(builder.Configuration);
+
+startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+startup.Configure(app);
 
 app.Run();
+
+static WebApplicationBuilder CreateBuilder(string[] args)
+{
+    var webApplicationOptions = new WebApplicationOptions
+    {
+        Args = args,
+        ContentRootPath = $"{Directory.GetCurrentDirectory()}/Configuration"
+    };
+
+    var builder = WebApplication.CreateBuilder(webApplicationOptions);
+
+    builder.Host.ConfigureAppConfiguration((builderContext, config) =>
+    {
+        var hostingEnvironment = builderContext.HostingEnvironment;
+        config.AddConfigServer(hostingEnvironment.EnvironmentName);
+        config.AddEnvironmentVariables();
+    })
+    .UseSerilog((hostingContext, loggerConfiguration) =>
+    {
+        loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
+    });
+
+    return builder;
+}
