@@ -22,5 +22,10 @@ namespace GameCollector.Domain.Exceptions.Enum
         /// The duplicated
         /// </summary>
         Duplicated = 202,
+
+        /// <summary>
+        /// The invalid odd
+        /// </summary>
+        InvalidOdd = 203,
     }
 }
