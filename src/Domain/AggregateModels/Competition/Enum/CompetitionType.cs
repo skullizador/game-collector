@@ -1,31 +1,32 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ErrorCode.cs" company="HumbleBets">
+// <copyright file="CompetitionType.cs" company="HumbleBets">
 //     Copyright (c) HumbleBets. All rights reserved.
 // </copyright>
 // <summary>
-// ErrorCode
+// CompetitionType
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace GameCollector.Domain.Exceptions.Enum
+
+namespace GameCollector.Domain.AggregateModels.Competition.Enum
 {
     /// <summary>
-    /// <see cref="ErrorCode"/>
+    /// <see cref="CompetitionType"/>
     /// </summary>
-    public enum ErrorCode
+    public enum CompetitionType
     {
         /// <summary>
-        /// The not found
+        /// The league
         /// </summary>
-        NotFound = 201,
+        League = 1,
 
         /// <summary>
-        /// The duplicated
+        /// The tournament
         /// </summary>
-        Duplicated = 202,
+        Tournament = 2,
 
         /// <summary>
-        /// The invalid odd
+        /// The friendly
         /// </summary>
-        InvalidOdd = 203,
+        Friendly = 3
     }
 }

@@ -14,6 +14,7 @@ namespace GameCollector.Infrastructure
     using System.Threading;
     using System.Threading.Tasks;
     using GameCollector.Domain.SeedWork;
+    using GameCollector.Infrastructure.EntityConfiguration;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -135,6 +136,10 @@ namespace GameCollector.Infrastructure
         /// </remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new OddEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CompetitionEntityTypeConfiguration());
+
             var properties = modelBuilder.Model.GetEntityTypes()
                 .SelectMany(t => t.GetProperties())
                 .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?));

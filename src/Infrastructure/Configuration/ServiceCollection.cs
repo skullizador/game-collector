@@ -9,6 +9,8 @@
 
 namespace GameCollector.Infrastructure.Configuration
 {
+    using GameCollector.Domain.AggregateModels.Competition.Repository;
+    using GameCollector.Infrastructure.Repository;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
@@ -22,6 +24,11 @@ namespace GameCollector.Infrastructure.Configuration
         /// <param name="services">The services.</param>
         public static void RegisterInfrastructureServices(this IServiceCollection services)
         {
+            services.AddScoped<IOddRepository, OddRepository>();
+
+            services.AddScoped<IGameRepository, GameRepository>();
+
+            services.AddScoped<ICompetitionRepository, CompetitionRepository>();
         }
     }
 }

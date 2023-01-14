@@ -1,31 +1,32 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ErrorCode.cs" company="HumbleBets">
+// <copyright file="OddType.cs" company="HumbleBets">
 //     Copyright (c) HumbleBets. All rights reserved.
 // </copyright>
 // <summary>
-// ErrorCode
+// OddType
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace GameCollector.Domain.Exceptions.Enum
+
+namespace GameCollector.Domain.AggregateModels.Competition.Enum
 {
     /// <summary>
-    /// <see cref="ErrorCode"/>
+    /// <see cref="OddType"/>
     /// </summary>
-    public enum ErrorCode
+    public enum OddType
     {
         /// <summary>
-        /// The not found
+        /// The v1
         /// </summary>
-        NotFound = 201,
+        V1 = 1,
 
         /// <summary>
-        /// The duplicated
+        /// The x
         /// </summary>
-        Duplicated = 202,
+        X = 2,
 
         /// <summary>
-        /// The invalid odd
+        /// The v2
         /// </summary>
-        InvalidOdd = 203,
+        V2 = 3
     }
 }
