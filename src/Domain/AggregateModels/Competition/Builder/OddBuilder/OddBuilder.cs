@@ -54,6 +54,7 @@ namespace GameCollector.Domain.AggregateModels.Competition.Builder.OddBuilder
         public IOddBuilder NewOdd(Guid bookmakerId, OddType type, decimal value)
         {
             this.odd = new Odd(bookmakerId, type, value);
+
             return this;
         }
     }

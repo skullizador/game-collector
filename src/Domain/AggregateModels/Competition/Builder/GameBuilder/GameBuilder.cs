@@ -52,12 +52,12 @@ namespace GameCollector.Domain.AggregateModels.Competition.Builder.GameBuilder
         /// </summary>
         /// <param name="teamAId">The team a identifier.</param>
         /// <param name="teamBId">The team b identifier.</param>
-        /// <param name="Score">The score.</param>
+        /// <param name="score"></param>
         /// <param name="startDate">The start date.</param>
         /// <returns></returns>
-        public IGameBuilder NewGame(Guid teamAId, Guid teamBId, string Score, DateTime startDate)
+        public IGameBuilder NewGame(Guid teamAId, Guid teamBId, string score, DateTime startDate)
         {
-            this.game = new Game(teamAId, teamBId, Score, startDate);
+            this.game = new Game(teamAId, teamBId, score, startDate);
 
             return this;
         }

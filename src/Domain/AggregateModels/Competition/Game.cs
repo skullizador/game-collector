@@ -31,14 +31,14 @@ namespace GameCollector.Domain.AggregateModels.Competition
         /// </summary>
         /// <param name="teamAId">The team a identifier.</param>
         /// <param name="teamBId">The team b identifier.</param>
-        /// <param name="Score">The score.</param>
+        /// <param name="score">The score.</param>
         /// <param name="startDate">The start date.</param>
-        internal Game(Guid teamAId, Guid teamBId, string Score, DateTime startDate)
+        internal Game(Guid teamAId, Guid teamBId, string score, DateTime startDate)
             : this()
         {
             this.TeamAId = teamAId;
             this.TeamBId = teamBId;
-            this.Score = Score;
+            this.Score = score;
             this.StartDate = startDate;
         }
 

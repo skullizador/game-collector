@@ -13,7 +13,7 @@ namespace GameCollector.Domain.Exceptions
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// <see cref="NotFoundException"/>
+    /// <see cref="InvalidOddException"/>
     /// </summary>
     /// <seealso cref="GameCollectorException"/>
     [Serializable]

@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Program.cs" company="HumbleBets">
+// <copyright file="OddType.cs" company="HumbleBets">
 //     Copyright (c) HumbleBets. All rights reserved.
 // </copyright>
 // <summary>
-// Program
+// OddType
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
