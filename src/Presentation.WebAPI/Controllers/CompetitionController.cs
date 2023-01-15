@@ -19,14 +19,29 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
 
+    /// <summary>
+    /// <see cref="CompetitionController"/>
+    /// </summary>
+    /// <seealso cref="Controller"/>
     [ApiController]
     [Route("api/v1/Competition")]
     public class CompetitionController : Controller
     {
+        /// <summary>
+        /// The mapper
+        /// </summary>
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// The mediator
+        /// </summary>
         private readonly IMediator mediator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompetitionController"/> class.
+        /// </summary>
+        /// <param name="mapper">The mapper.</param>
+        /// <param name="mediator">The mediator.</param>
         public CompetitionController(
             IMapper mapper,
             IMediator mediator)
