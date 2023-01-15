@@ -10,6 +10,8 @@
 namespace GameCollector.Presentation.WebAPI.Mappers
 {
     using AutoMapper;
+    using GameCollector.Domain.AggregateModels.Competition;
+    using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
 
     /// <summary>
     /// <see cref="MapperProfile"/>
@@ -22,6 +24,11 @@ namespace GameCollector.Presentation.WebAPI.Mappers
         /// </summary>
         public MapperProfile()
         {
+            this.CreateMap<Competition, CompetitionDetailsDto>();
+
+            this.CreateMap<Game, GameDetailsDto>();
+
+            this.CreateMap<Odd, OddDetailsDto>();
         }
     }
 }
