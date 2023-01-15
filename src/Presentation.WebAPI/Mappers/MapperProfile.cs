@@ -26,6 +26,8 @@ namespace GameCollector.Presentation.WebAPI.Mappers
         {
             this.CreateMap<Competition, CompetitionDetailsDto>();
 
+            this.CreateMap<Competition, CompetitionDto>();
+
             this.CreateMap<Game, GameDetailsDto>();
 
             this.CreateMap<Odd, OddDetailsDto>();
