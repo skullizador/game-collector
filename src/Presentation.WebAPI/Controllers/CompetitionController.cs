@@ -14,6 +14,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
+    using GameCollector.Presentation.WebAPI.Queries.Competition.GetAllCompetitionsQuery;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByCompetitionIdQuery;
     using GameCollector.Presentation.WebAPI.Utils;
     using MediatR;
@@ -48,6 +49,20 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         {
             this.mapper = mapper;
             this.mediator = mediator;
+        }
+
+        /// <summary>
+        /// Gets all asynchronous.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CompetitionDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+        {
+            IEnumerable<Competition> competitions = await this.mediator.Send(new GetAllCompetitionsQuery(), cancellationToken);
+
+            return this.Ok(this.mapper.Map<IEnumerable<CompetitionDto>>(competitions));
         }
 
         /// <summary>
