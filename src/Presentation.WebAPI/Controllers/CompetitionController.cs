@@ -12,6 +12,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using System.Net;
     using AutoMapper;
     using GameCollector.Domain.AggregateModels.Competition;
+    using GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByCompetitionIdQuery;
@@ -48,6 +49,30 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         {
             this.mapper = mapper;
             this.mediator = mediator;
+        }
+
+        /// <summary>
+        /// Creates the competition asynchronous.
+        /// </summary>
+        /// <param name="competitionDto">The competition dto.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(CompetitionDetailsDto), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> CreateCompetitionAsync([FromBody] CreateCompetitionDto competitionDto, CancellationToken cancellationToken)
+        {
+            Competition competition = await this.mediator.Send(new CreateCompetitionCommand
+            {
+                Name = competitionDto.Name,
+                Description = competitionDto.Description,
+                Type = competitionDto.Type,
+                Year = competitionDto.Year,
+                Region = competitionDto.Region,
+                Sport = competitionDto.Sport,
+            }, cancellationToken);
+
+            return this.Created(string.Empty, this.mapper.Map<CompetitionDetailsDto>(competition));
         }
 
         /// <summary>
