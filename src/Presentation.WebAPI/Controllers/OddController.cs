@@ -42,7 +42,9 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         /// </summary>
         /// <param name="mediator">The mediator.</param>
         /// <param name="mapper">The mapper.</param>
-        public OddController(IMediator mediator, IMapper mapper)
+        public OddController(
+            IMediator mediator,
+            IMapper mapper)
         {
             this.mediator = mediator;
             this.mapper = mapper;
