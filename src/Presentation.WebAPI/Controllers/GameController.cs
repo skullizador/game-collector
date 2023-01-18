@@ -51,6 +51,12 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             this.mediator = mediator;
         }
 
+        /// <summary>
+        /// Gets the by competition identifier asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<GameDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
