@@ -15,6 +15,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByGameIdQuery;
+    using GameCollector.Presentation.WebAPI.Queries.Competition.GetGamesByCompetitionIdQuery;
     using GameCollector.Presentation.WebAPI.Utils;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,26 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         {
             this.mapper = mapper;
             this.mediator = mediator;
+        }
+
+        /// <summary>
+        /// Gets the by competition identifier asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<GameDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetByCompetitionIdAsync([FromQuery] GetByCompetitionIdDto filter, CancellationToken cancellationToken)
+        {
+            IEnumerable<Game> games = await this.mediator.Send(new GetGamesByCompetitionIdQuery
+            {
+                CompetitionId = filter.CompetitionId
+            }, cancellationToken);
+
+            return this.Ok(this.mapper.Map<IEnumerable<GameDto>>(games));
         }
 
         /// <summary>
