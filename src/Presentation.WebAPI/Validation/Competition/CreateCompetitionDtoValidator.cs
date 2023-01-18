@@ -12,8 +12,15 @@ namespace GameCollector.Presentation.WebAPI.Validation.Competition
     using FluentValidation;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
 
+    /// <summary>
+    /// <see cref="CreateCompetitionDtoValidator"/>
+    /// </summary>
+    /// <seealso cref="AbstractValidator{CreateCompetitionDto}"/>
     public class CreateCompetitionDtoValidator : AbstractValidator<CreateCompetitionDto>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateCompetitionDtoValidator"/> class.
+        /// </summary>
         public CreateCompetitionDtoValidator()
         {
             this.RuleFor(x => x.Name)
