@@ -13,7 +13,6 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using AutoMapper;
     using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Presentation.WebAPI.Commands.UpdateCompetitionCommand;
-    using GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByCompetitionIdQuery;
