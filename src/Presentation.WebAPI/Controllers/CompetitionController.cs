@@ -12,6 +12,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using System.Net;
     using AutoMapper;
     using GameCollector.Domain.AggregateModels.Competition;
+    using GameCollector.Presentation.WebAPI.Commands.UpdateCompetitionCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByCompetitionIdQuery;
@@ -65,6 +66,33 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             Competition competition = await this.mediator.Send(new GetByCompetitionIdQuery
             {
                 CompetitionId = filter.CompetitionId
+            }, cancellationToken);
+
+            return this.Ok(this.mapper.Map<CompetitionDetailsDto>(competition));
+        }
+
+        /// <summary>
+        /// Updates the competition asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="updateCompetitionDto">The update competition dto.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        [HttpPut("{CompetitionId}")]
+        [ProducesResponseType(typeof(CompetitionDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdateCompetitionAsync(
+            [FromRoute] GetByCompetitionIdDto filter,
+            [FromBody] UpdateCompetitionDto updateCompetitionDto,
+            CancellationToken cancellationToken)
+        {
+            Competition competition = await this.mediator.Send(new UpdateCompetitionCommand
+            {
+                CompetitionId = filter.CompetitionId,
+                Region = updateCompetitionDto.Region,
+                Description = updateCompetitionDto.Description,
+                Year = updateCompetitionDto.Year
             }, cancellationToken);
 
             return this.Ok(this.mapper.Map<CompetitionDetailsDto>(competition));

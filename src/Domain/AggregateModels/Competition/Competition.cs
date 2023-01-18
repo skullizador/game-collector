@@ -123,12 +123,41 @@ namespace GameCollector.Domain.AggregateModels.Competition
         }
 
         /// <summary>
+        /// Updates the specified description.
+        /// </summary>
+        /// <param name="description">The description.</param>
+        /// <param name="region">The region.</param>
+        /// <param name="year">The year.</param>
+        public void Update(string description, string region, int year)
+        {
+            this.Description = ValidateValue(description);
+            this.Region = ValidateValue(region);
+            this.Year = year;
+        }
+
+        /// <summary>
         /// Gets the atomic values.
         /// </summary>
         /// <returns></returns>
         protected override IEnumerable<object> GetAtomicValues()
         {
             yield return this.UUId;
+        }
+
+        /// <summary>
+        /// Validates the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">value - The value cannot be null or empty.</exception>
+        private static string ValidateValue(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentNullException(nameof(value), "The value cannot be null or empty.");
+            }
+
+            return value;
         }
     }
 }
