@@ -54,6 +54,20 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         }
 
         /// <summary>
+        /// Gets all asynchronous.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CompetitionDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+        {
+            IEnumerable<Competition> competitions = await this.mediator.Send(new GetAllCompetitionsQuery(), cancellationToken);
+
+            return this.Ok(this.mapper.Map<IEnumerable<CompetitionDto>>(competitions));
+        }
+
+        /// <summary>
         /// Creates the competition asynchronous.
         /// </summary>
         /// <param name="competitionDto">The competition dto.</param>
