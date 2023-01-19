@@ -11,18 +11,18 @@ namespace GameCollector.Presentation.WebAPI.Commands.DeleteCompetitionCommand
 {
     using MediatR;
 
+
     /// <summary>
     /// <see cref="DeleteCompetitionCommand"/>
     /// </summary>
     /// <seealso cref="INotification" />
     public class DeleteCompetitionCommand : INotification
     {
+
         /// <summary>
         /// Gets the competition identifier.
         /// </summary>
-        /// <value>
-        /// The competition identifier.
-        /// </value>
+        /// <value>The competition identifier.</value>
         public Guid CompetitionId { get; init; }
     }
 }
