@@ -12,7 +12,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using System.Net;
     using AutoMapper;
     using GameCollector.Domain.AggregateModels.Competition;
-    using GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand;
+    using GameCollector.Presentation.WebAPI.Commands.CreateCompetitionCommand;
     using GameCollector.Presentation.WebAPI.Commands.UpdateCompetitionCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
@@ -89,20 +89,6 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             }, cancellationToken);
 
             return this.Created(string.Empty, this.mapper.Map<CompetitionDetailsDto>(competition));
-        }
-
-        /// <summary>
-        /// Gets all asynchronous.
-        /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns></returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<CompetitionDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
-        {
-            IEnumerable<Competition> competitions = await this.mediator.Send(new GetAllCompetitionsQuery(), cancellationToken);
-
-            return this.Ok(this.mapper.Map<IEnumerable<CompetitionDto>>(competitions));
         }
 
         /// <summary>

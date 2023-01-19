@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand
+namespace GameCollector.Presentation.WebAPI.Commands.CreateCompetitionCommand
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -58,7 +58,7 @@ namespace GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand
         /// </exception>
         public async Task<Competition> Handle(CreateCompetitionCommand request, CancellationToken cancellationToken)
         {
-            Competition competition = await this.competitionRepository
+            Competition competition = await competitionRepository
                 .GetUniqueAsync(
                     request.Name,
                     request.Region,
@@ -72,7 +72,7 @@ namespace GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand
                 throw new DuplicatedException($"The competition with name {request.Name} {request.Year} which takes place ate {request.Region} is duplicated.");
             }
 
-            competition = this.competitionBuilder
+            competition = competitionBuilder
                 .NewCompetition(
                     request.Name,
                     request.Year,
@@ -82,9 +82,9 @@ namespace GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand
                     request.Type)
                 .Build();
 
-            await this.competitionRepository.AddAsync(competition, cancellationToken);
+            await competitionRepository.AddAsync(competition, cancellationToken);
 
-            await this.competitionRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await competitionRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return competition;
         }

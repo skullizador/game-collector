@@ -12,6 +12,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using System.Net;
     using AutoMapper;
     using GameCollector.Domain.AggregateModels.Competition;
+    using GameCollector.Presentation.WebAPI.Commands.DeleteGameCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByGameIdQuery;
@@ -90,5 +91,26 @@ namespace GameCollector.Presentation.WebAPI.Controllers
 
             return this.Ok(this.mapper.Map<GameDetailsDto>(game));
         }
+
+        /// <summary>
+        /// Deletes the game asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        [HttpDelete("{GameId}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> DeleteGameAsync([FromRoute] GetByGameIdDto filter, CancellationToken cancellationToken)
+        {
+            await this.mediator.Publish(new DeleteGameCommand
+            {
+                GameId = filter.GameId
+            }, cancellationToken);
+
+            return this.Ok();
+        }
+
     }
 }
