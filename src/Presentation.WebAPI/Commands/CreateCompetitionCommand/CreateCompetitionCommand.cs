@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand
+namespace GameCollector.Presentation.WebAPI.Commands.CreateCompetitionCommand
 {
     using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Domain.AggregateModels.Competition.Enum;
@@ -24,9 +24,9 @@ namespace GameCollector.Presentation.WebAPI.Command.CreateCompetitionCommand
         /// </summary>
         public CreateCompetitionCommand()
         {
-            this.Description = string.Empty;
-            this.Name = string.Empty;
-            this.Region = string.Empty;
+            Description = string.Empty;
+            Name = string.Empty;
+            Region = string.Empty;
         }
 
         /// <summary>
