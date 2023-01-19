@@ -10,11 +10,11 @@
 namespace GameCollector.Presentation.WebAPI.Commands.CreateCompetitionCommand
 {
     using System.Threading;
-    using System.Threading.Tasks;
+    using System.Threading.Tasks;
     using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Domain.AggregateModels.Competition.Builder.CompetitionBuilder;
     using GameCollector.Domain.AggregateModels.Competition.Repository;
-    using GameCollector.Domain.Exceptions;
+    using GameCollector.Domain.Exceptions;
     using MediatR;
 
     /// <summary>
