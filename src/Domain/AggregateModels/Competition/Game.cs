@@ -104,6 +104,21 @@ namespace GameCollector.Domain.AggregateModels.Competition
         }
 
         /// <summary>
+        /// Updates the specified score.
+        /// </summary>
+        /// <param name="Score">The score.</param>
+        /// <param name="StartDate">The start date.</param>
+        /// <param name="TeamAId">The team a identifier.</param>
+        /// <param name="TeamBId">The team b identifier.</param>
+        public void Update(string Score, DateTime StartDate, Guid TeamAId, Guid TeamBId)
+        {
+            this.Score = Score;
+            this.StartDate = StartDate;
+            this.TeamAId = TeamAId;
+            this.TeamBId= TeamBId;
+        }
+
+        /// <summary>
         /// Gets the atomic values.
         /// </summary>
         /// <returns></returns>

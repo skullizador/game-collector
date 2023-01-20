@@ -12,6 +12,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using System.Net;
     using AutoMapper;
     using GameCollector.Domain.AggregateModels.Competition;
+    using GameCollector.Presentation.WebAPI.Commands.UpdateGameCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByGameIdQuery;
@@ -90,5 +91,27 @@ namespace GameCollector.Presentation.WebAPI.Controllers
 
             return this.Ok(this.mapper.Map<GameDetailsDto>(game));
         }
+
+        [HttpPut("{GameId}")]
+        [ProducesResponseType(typeof(GameDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdateGameAsync(
+            [FromRoute] GetByGameIdDto filters, 
+            [FromBody] UpdateGameDto updateGameDto, 
+            CancellationToken cancellationToken)
+        {
+            Game game = await this.mediator.Send(new UpdateGameCommand
+            {
+                GameId = filters.GameId,
+                Score = updateGameDto.Score,
+                StartDate = updateGameDto.StartDate,
+                TeamAId = updateGameDto.TeamAId,
+                TeamBId = updateGameDto.TeamBId,
+            }, cancellationToken);
+
+            return this.Ok(this.mapper.Map<GameDetailsDto>(game);
+        }
+
     }
 }
