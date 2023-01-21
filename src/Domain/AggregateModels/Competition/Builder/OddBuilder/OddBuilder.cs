@@ -30,7 +30,10 @@ namespace GameCollector.Domain.AggregateModels.Competition.Builder.OddBuilder
         /// <returns></returns>
         public IOddBuilder AddTeamId(Guid? teamId)
         {
-            this.odd.SetTeamId(teamId);
+            if(teamId is not null)
+            {
+                this.odd.SetTeamId(teamId);
+            }
 
             return this;
         }

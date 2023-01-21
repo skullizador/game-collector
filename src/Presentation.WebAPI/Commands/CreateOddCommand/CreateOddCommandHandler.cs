@@ -41,11 +41,8 @@ namespace GameCollector.Presentation.WebAPI.Commands.CreateOddCommand
 
             this.oddBuilder.NewOdd(request.BookmakerId, request.Type, request.Value);
              
-            if(request.TeamId is not null)
-            {
-                this.oddBuilder.AddTeamId(request.TeamId);
-            }
-
+            this.oddBuilder.AddTeamId(request.TeamId);
+            
             Odd odd = this.oddBuilder.Build();
 
             game.AddOdd(odd);

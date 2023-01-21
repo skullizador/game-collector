@@ -25,8 +25,8 @@ namespace GameCollector.Presentation.WebAPI.Validation.Competition
                     .WithMessage("The odd Type shouldn't be empty.");
 
             this.RuleFor(x => x.Value)
-                .NotEmpty()
-                    .WithMessage("The odd Value shouldn't be empty.");
+                .GreaterThan(1)
+                    .WithMessage("The odd Value should be greater than 1.");
 
         }
     }
