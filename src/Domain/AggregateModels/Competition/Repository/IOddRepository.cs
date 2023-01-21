@@ -10,6 +10,7 @@
 namespace GameCollector.Domain.AggregateModels.Competition.Repository
 {
     using GameCollector.Domain.SeedWork;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// <see cref="IOddRepository"/>
@@ -17,5 +18,6 @@ namespace GameCollector.Domain.AggregateModels.Competition.Repository
     /// <seealso cref="IRepository{Odd}"/>
     public interface IOddRepository : IRepository<Odd>
     {
+        Task<Odd> GetUniqueAsync();
     }
 }

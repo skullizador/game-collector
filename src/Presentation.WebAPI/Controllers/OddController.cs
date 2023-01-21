@@ -14,6 +14,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Presentation.WebAPI.Commands.CreateOddCommand;
     using GameCollector.Presentation.WebAPI.Commands.DeleteOddCommand;
+    using GameCollector.Presentation.WebAPI.Commands.UpdateOddCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByOddIdQuery;
@@ -136,5 +137,23 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             return this.Ok();
         }
 
+
+        [HttpPut("{OddId}")]
+        [ProducesResponseType(typeof(OddDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage),(int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdateOddAsync(
+            [FromRoute] GetByOddIdDto filters, 
+            [FromBody] UpdateOddDto updateOddDto, 
+            CancellationToken cancellationToken)
+        {
+            Odd odd = await this.mediator.Send(new UpdateOddCommand
+            {
+                OddId = filters.OddId,
+                Value = updateOddDto.Value,
+            }, cancellationToken) ;
+
+            return this.Ok(this.mapper.Map<OddDetailsDto>(odd));
+        }
     }
 }

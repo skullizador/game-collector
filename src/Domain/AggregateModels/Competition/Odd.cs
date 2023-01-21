@@ -82,6 +82,11 @@ namespace GameCollector.Domain.AggregateModels.Competition
             this.TeamId = teamId;
         }
 
+        public void Update(decimal value)
+        {
+            this.Value = value;
+        }
+
         /// <summary>
         /// Gets the atomic values.
         /// </summary>
