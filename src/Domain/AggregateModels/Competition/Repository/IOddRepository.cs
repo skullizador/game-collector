@@ -18,6 +18,5 @@ namespace GameCollector.Domain.AggregateModels.Competition.Repository
     /// <seealso cref="IRepository{Odd}"/>
     public interface IOddRepository : IRepository<Odd>
     {
-        Task<Odd> GetUniqueAsync();
     }
 }

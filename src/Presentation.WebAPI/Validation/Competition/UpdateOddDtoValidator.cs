@@ -19,8 +19,8 @@ namespace GameCollector.Presentation.WebAPI.Validation.Competition
         public UpdateOddDtoValidator()
         {
             this.RuleFor(x => x.Value)
-                .NotEmpty()
-                    .WithMessage("The odd Value shouldn't be empty.");
+                .GreaterThan(1)
+                    .WithMessage("The odd Value shouldn't be lower than 1.");
         }
     }
 }

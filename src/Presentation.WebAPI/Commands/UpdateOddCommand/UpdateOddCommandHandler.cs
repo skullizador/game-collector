@@ -32,7 +32,7 @@ namespace GameCollector.Presentation.WebAPI.Commands.UpdateOddCommand
 
             if (odd is null)
             {
-                throw new NotFoundException("");
+                throw new NotFoundException($"The odd with id {request.OddId} wasn't found.");
             }
 
             odd.Update(request.Value);
