@@ -26,7 +26,7 @@ namespace GameCollector.Presentation.WebAPI.Validation.Competition
 
             this.RuleFor(x => x.Value)
                 .GreaterThan(1)
-                    .WithMessage("The odd Value should be greater than 1.");
+                    .WithMessage("The odd Value shouldn't be lower than 1.");
 
         }
     }
