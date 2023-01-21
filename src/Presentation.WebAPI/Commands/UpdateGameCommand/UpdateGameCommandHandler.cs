@@ -1,4 +1,13 @@
-﻿namespace GameCollector.Presentation.WebAPI.Commands.UpdateGameCommand
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UpdateGameCommandHandler.cs" company="HumbleBets">
+//     Copyright (c) HumbleBets. All rights reserved.
+// </copyright>
+// <summary>
+// UpdateGameCommandHandler
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace GameCollector.Presentation.WebAPI.Commands.UpdateGameCommand
 {
     using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Domain.AggregateModels.Competition.Repository;

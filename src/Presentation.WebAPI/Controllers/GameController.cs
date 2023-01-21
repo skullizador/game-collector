@@ -110,7 +110,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
                 TeamBId = updateGameDto.TeamBId,
             }, cancellationToken);
 
-            return this.Ok(this.mapper.Map<GameDetailsDto>(game);
+            return this.Ok(this.mapper.Map<GameDetailsDto>(game));
         }
 
     }
