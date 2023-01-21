@@ -8,9 +8,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace GameCollector.Presentation.WebAPI.Commands.CreateCompetitionCommand
-{
+{
     using GameCollector.Domain.AggregateModels.Competition;
-    using GameCollector.Domain.AggregateModels.Competition.Enum;
+    using GameCollector.Domain.AggregateModels.Competition.Enum;
     using MediatR;
 
     /// <summary>
