@@ -24,9 +24,9 @@ namespace GameCollector.Presentation.WebAPI.Commands.CreateCompetitionCommand
         /// </summary>
         public CreateCompetitionCommand()
         {
-            Description = string.Empty;
-            Name = string.Empty;
-            Region = string.Empty;
+            this.Description = string.Empty;
+            this.Name = string.Empty;
+            this.Region = string.Empty;
         }
 
         /// <summary>
