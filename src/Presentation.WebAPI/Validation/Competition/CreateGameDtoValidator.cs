@@ -24,18 +24,9 @@ namespace GameCollector.Presentation.WebAPI.Validation.Competition
                 .NotEqual(Guid.Empty)
                     .WithMessage("The TeamBId shouldn't have the default value.");
 
-            this.RuleFor(x => x.Score)
-                .NotEmpty()
-                    .WithMessage("The Score shouldn't be empty.")
-                .MaximumLength(2)
-                    .WithMessage("The Score shouldn't be longer than 2 characters.");
-
             this.RuleFor(x => x.StartDate)
                 .GreaterThanOrEqualTo(DateTime.Now.Date)
                     .WithMessage("The Start Date shoudn't be older than the current date.");
-
-
-
         }
     }
 }

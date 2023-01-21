@@ -150,7 +150,6 @@ namespace GameCollector.Presentation.WebAPI.Controllers
                 CompetitionId = filters.CompetitionId,
                 TeamAId = createGameDto.TeamAId,
                 TeamBId = createGameDto.TeamBId,
-                Score = createGameDto.Score,
                 StartDate = createGameDto.StartDate,
             }, cancelationToken);
 

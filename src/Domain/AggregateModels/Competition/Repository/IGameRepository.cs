@@ -20,6 +20,5 @@ namespace GameCollector.Domain.AggregateModels.Competition.Repository
     /// <seealso cref="IRepository{Game}"/>
     public interface IGameRepository : IRepository<Game>
     {
-        Task<Game> GetUniqueAsync(Guid teamAId, Guid teamBId, string score, DateTime startDate, CancellationToken cancellationToken);
     }
 }
