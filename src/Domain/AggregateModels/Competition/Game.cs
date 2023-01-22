@@ -104,6 +104,24 @@ namespace GameCollector.Domain.AggregateModels.Competition
         }
 
         /// <summary>
+        /// Updates the specified score.
+        /// </summary>
+        /// <param name="startDate">The start date.</param>
+        /// <param name="teamAId">The team a identifier.</param>
+        /// <param name="teamBId">The team b identifier.</param>
+        public void Update(DateTime startDate, Guid teamAId, Guid teamBId)
+        {
+            if(DateTime.Now >= this.StartDate)
+            {
+                throw new NotUpdatableException($"The Game {this.UUId} that started at {this.StartDate} is no longer updatable.");
+            }
+
+            this.StartDate = startDate;
+            this.TeamAId = teamAId;
+            this.TeamBId= teamBId;
+        }
+
+        /// <summary>
         /// Gets the atomic values.
         /// </summary>
         /// <returns></returns>

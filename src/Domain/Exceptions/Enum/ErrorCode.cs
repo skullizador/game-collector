@@ -27,5 +27,7 @@ namespace GameCollector.Domain.Exceptions.Enum
         /// The invalid odd
         /// </summary>
         InvalidOdd = 203,
+
+        NotUpdatable = 204,
     }
 }
