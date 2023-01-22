@@ -121,6 +121,15 @@ namespace GameCollector.Domain.AggregateModels.Competition
             this.TeamBId= teamBId;
         }
 
+        public void UpdateLive(string score)
+        {
+            if(DateTime.Now < this.StartDate)
+            {
+                throw new NotUpdatableException($"The Game {this.UUId} has not started yet, therefore the score it's not updatable.");
+            }
+            this.Score = score;
+        }
+
         /// <summary>
         /// Gets the atomic values.
         /// </summary>
