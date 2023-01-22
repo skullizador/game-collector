@@ -7,7 +7,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
 namespace GameCollector.Presentation.WebAPI.Commands.UpdateGameLiveCommand
 {
     using GameCollector.Domain.AggregateModels.Competition;

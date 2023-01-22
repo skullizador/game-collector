@@ -24,6 +24,7 @@ namespace GameCollector.Presentation.WebAPI.Commands.UpdateGameLiveCommand
         {
             this.gameRepository = gameRepository;
         }
+
         public async Task<Game> Handle(UpdateGameLiveCommand request, CancellationToken cancellationToken)
         {
             Game game = await this.gameRepository.GetAsync(request.GameId,cancellationToken);
@@ -32,7 +33,8 @@ namespace GameCollector.Presentation.WebAPI.Commands.UpdateGameLiveCommand
             {
                 throw new NotFoundException($"The game with id {request.GameId} wasn't found.");
             }
-            game.UpdateLive(request.Score);
+
+            game.UpdateLiveScore(request.Score);
 
             await this.gameRepository.Update(game, cancellationToken);
 
