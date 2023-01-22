@@ -22,6 +22,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using GameCollector.Presentation.WebAPI.Utils;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
+    using GameCollector.Presentation.WebAPI.Commands.UpdateGameLiveCommand;
 
     /// <summary>
     /// <see cref="GameController"/>
@@ -120,8 +121,8 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> UpdateGameAsync(
-            [FromRoute] GetByGameIdDto filters, 
-            [FromBody] UpdateGameDto updateGameDto, 
+            [FromRoute] GetByGameIdDto filters,
+            [FromBody] UpdateGameDto updateGameDto,
             CancellationToken cancellationToken)
         {
             Game game = await this.mediator.Send(new UpdateGameCommand
@@ -142,7 +143,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> AddGameToCompetitionAsync(
             [FromQuery] GetByCompetitionIdDto filters,
-            [FromBody] CreateGameDto createGameDto, 
+            [FromBody] CreateGameDto createGameDto,
             CancellationToken cancelationToken)
         {
             Game game = await this.mediator.Send(new CreateGameCommand
@@ -154,6 +155,24 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             }, cancelationToken);
 
             return this.Created(string.Empty, this.mapper.Map<GameDetailsDto>(game));
+        }
+
+        [HttpPut("{GameId}/Live")]
+        [ProducesResponseType(typeof(GameDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdateGameLiveAsync(
+            [FromRoute] GetByGameIdDto filters,
+            [FromBody] UpdateGameLiveDto updateGameLiveDto,
+            CancellationToken cancellationToken)
+        {
+            Game game = await this.mediator.Send(new UpdateGameLiveCommand
+            {
+                GameId = filters.GameId,
+                Score = updateGameLiveDto.Score,
+            }, cancellationToken);
+
+            return this.Ok(this.mapper.Map<GameDetailsDto>(game));
         }
     }
 }
