@@ -13,6 +13,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using AutoMapper;
     using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Presentation.WebAPI.Commands.CreateOddCommand;
+    using GameCollector.Presentation.WebAPI.Commands.DeleteOddCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByOddIdQuery;
@@ -114,5 +115,26 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             return this.Ok(this.mapper.Map<OddDetailsDto>(odd));
 
         }
+
+        /// <summary>
+        /// Deletes the odd asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        [HttpDelete("{OddId}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> DeleteOddAsync([FromRoute] GetByOddIdDto filter, CancellationToken cancellationToken)
+        {
+            await this.mediator.Publish(new DeleteOddCommand
+            {
+                OddId = filter.OddId
+            }, cancellationToken);
+
+            return this.Ok();
+        }
+
     }
 }
