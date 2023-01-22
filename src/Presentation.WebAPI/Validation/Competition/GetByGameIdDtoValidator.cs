@@ -23,7 +23,7 @@ namespace GameCollector.Presentation.WebAPI.Validation.Competition
         /// </summary>
         public GetByGameIdDtoValidator()
         {
-            RuleFor(x => x.GameId)
+            this.RuleFor(x => x.GameId)
                 .NotEqual(Guid.Empty)
                     .WithMessage("The GameId shouldn't have the default value.");
         }

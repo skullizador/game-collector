@@ -51,7 +51,7 @@ namespace GameCollector.Presentation.WebAPI.Validation.Competition
 
             this.RuleFor(x => x.Year)
                 .GreaterThanOrEqualTo(DateTime.Now.Year)
-                    .WithMessage("The Year lower than the current year.");
+                    .WithMessage("The Year shoudn't be lower than the current year.");
         }
     }
 }
