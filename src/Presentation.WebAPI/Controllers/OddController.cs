@@ -12,6 +12,7 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using System.Net;
     using AutoMapper;
     using GameCollector.Domain.AggregateModels.Competition;
+    using GameCollector.Presentation.WebAPI.Commands.CreateOddCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByOddIdQuery;
@@ -89,6 +90,29 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             }, cancellationToken);
 
             return this.Ok(this.mapper.Map<OddDetailsDto>(odd));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(OddDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> CreateOddAsync(
+            [FromQuery] GetByGameIdDto filters, 
+            [FromBody] CreateOddDto createOddDto, 
+            CancellationToken cancellationToken)
+        {
+            Odd odd = await this.mediator.Send(new CreateOddCommand
+            {
+                GameId = filters.GameId,
+                BookmakerId = createOddDto.BookmakerId,
+                TeamId = createOddDto.TeamId,
+                Value = createOddDto.Value,
+                Type = createOddDto.Type,
+
+            }, cancellationToken);
+
+            return this.Ok(this.mapper.Map<OddDetailsDto>(odd));
+
         }
     }
 }
