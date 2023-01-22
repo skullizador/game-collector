@@ -106,16 +106,19 @@ namespace GameCollector.Domain.AggregateModels.Competition
         /// <summary>
         /// Updates the specified score.
         /// </summary>
-        /// <param name="Score">The score.</param>
-        /// <param name="StartDate">The start date.</param>
-        /// <param name="TeamAId">The team a identifier.</param>
-        /// <param name="TeamBId">The team b identifier.</param>
-        public void Update(string Score, DateTime StartDate, Guid TeamAId, Guid TeamBId)
+        /// <param name="startDate">The start date.</param>
+        /// <param name="teamAId">The team a identifier.</param>
+        /// <param name="teamBId">The team b identifier.</param>
+        public void Update(DateTime startDate, Guid teamAId, Guid teamBId)
         {
-            this.Score = Score;
-            this.StartDate = StartDate;
-            this.TeamAId = TeamAId;
-            this.TeamBId= TeamBId;
+            if(DateTime.Now >= this.StartDate)
+            {
+                throw new NotUpdatableException($"The Game {this.UUId} that started at {this.StartDate} is no longer updatable.");
+            }
+
+            this.StartDate = startDate;
+            this.TeamAId = teamAId;
+            this.TeamBId= teamBId;
         }
 
         /// <summary>

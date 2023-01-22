@@ -24,14 +24,9 @@ namespace GameCollector.Presentation.WebAPI.Validation.Competition
                 .NotEqual(Guid.Empty)
                     .WithMessage("The TeamAId shouldn't be empty.");
 
-            this.RuleFor(x => x.Score)
-                .NotEmpty()
-                    .WithMessage("The Score shouldn't be empty.");
-
             this.RuleFor(x => x.StartDate)
                 .GreaterThanOrEqualTo(DateTime.Now.Date)
                     .WithMessage("The Start Date shoudn't be older than the current date.");
-
         }
     }
 }

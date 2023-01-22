@@ -35,7 +35,7 @@ namespace GameCollector.Presentation.WebAPI.Commands.UpdateGameCommand
                 throw new NotFoundException($"The game with id {request.GameId} wasn't found.");
             }
 
-            game.Update(request.Score, request.StartDate, request.TeamAId, request.TeamBId);
+            game.Update(request.StartDate, request.TeamAId, request.TeamBId);
 
             await this.gameRepository.Update(game, cancellationToken);
 

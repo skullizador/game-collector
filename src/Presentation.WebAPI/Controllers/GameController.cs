@@ -104,7 +104,6 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             Game game = await this.mediator.Send(new UpdateGameCommand
             {
                 GameId = filters.GameId,
-                Score = updateGameDto.Score,
                 StartDate = updateGameDto.StartDate,
                 TeamAId = updateGameDto.TeamAId,
                 TeamBId = updateGameDto.TeamBId,
