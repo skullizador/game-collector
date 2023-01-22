@@ -11,7 +11,6 @@ namespace GameCollector.Presentation.WebAPI.Controllers
 {
     using System.Net;
     using AutoMapper;
-    using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Presentation.WebAPI.Commands.UpdateGameCommand;
     using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Presentation.WebAPI.Commands.DeleteGameCommand;
