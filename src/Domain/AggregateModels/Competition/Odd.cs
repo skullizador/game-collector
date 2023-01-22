@@ -82,6 +82,16 @@ namespace GameCollector.Domain.AggregateModels.Competition
             this.TeamId = teamId;
         }
 
+        public void Update(decimal value)
+        {
+            if (value < 1)
+            {
+                throw new InvalidOddException("The odd value shouldn't be lower than 1.")
+            }
+
+            this.Value = value;
+        }
+
         /// <summary>
         /// Gets the atomic values.
         /// </summary>

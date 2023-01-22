@@ -10,6 +10,7 @@
 namespace GameCollector.Domain.AggregateModels.Competition.Repository
 {
     using GameCollector.Domain.SeedWork;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// <see cref="IOddRepository"/>
