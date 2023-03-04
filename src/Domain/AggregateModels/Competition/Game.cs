@@ -31,14 +31,12 @@ namespace GameCollector.Domain.AggregateModels.Competition
         /// </summary>
         /// <param name="teamAId">The team a identifier.</param>
         /// <param name="teamBId">The team b identifier.</param>
-        /// <param name="score">The score.</param>
         /// <param name="startDate">The start date.</param>
-        internal Game(Guid teamAId, Guid teamBId, string score, DateTime startDate)
+        internal Game(Guid teamAId, Guid teamBId, DateTime startDate)
             : this()
         {
             this.TeamAId = teamAId;
             this.TeamBId = teamBId;
-            this.Score = score;
             this.StartDate = startDate;
         }
 
@@ -111,19 +109,19 @@ namespace GameCollector.Domain.AggregateModels.Competition
         /// <param name="teamBId">The team b identifier.</param>
         public void Update(DateTime startDate, Guid teamAId, Guid teamBId)
         {
-            if(DateTime.Now >= this.StartDate)
+            if (DateTime.Now >= this.StartDate)
             {
                 throw new NotUpdatableException($"The Game {this.UUId} that started at {this.StartDate} is no longer updatable.");
             }
 
             this.StartDate = startDate;
             this.TeamAId = teamAId;
-            this.TeamBId= teamBId;
+            this.TeamBId = teamBId;
         }
 
         public void UpdateLiveScore(string score)
         {
-            if(DateTime.Now < this.StartDate)
+            if (DateTime.Now < this.StartDate)
             {
                 throw new NotUpdatableException($"The Game {this.UUId} has not started yet, therefore the score it's not updatable.");
             }

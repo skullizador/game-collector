@@ -11,10 +11,11 @@ namespace GameCollector.Presentation.WebAPI.Controllers
 {
     using System.Net;
     using AutoMapper;
-    using GameCollector.Presentation.WebAPI.Commands.UpdateGameCommand;
     using GameCollector.Domain.AggregateModels.Competition;
-    using GameCollector.Presentation.WebAPI.Commands.DeleteGameCommand;
     using GameCollector.Presentation.WebAPI.Commands.CreateGameCommand;
+    using GameCollector.Presentation.WebAPI.Commands.DeleteGameCommand;
+    using GameCollector.Presentation.WebAPI.Commands.UpdateGameCommand;
+    using GameCollector.Presentation.WebAPI.Commands.UpdateGameLiveCommand;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Output.Competition;
     using GameCollector.Presentation.WebAPI.Queries.Competition.GetByGameIdQuery;
@@ -22,7 +23,6 @@ namespace GameCollector.Presentation.WebAPI.Controllers
     using GameCollector.Presentation.WebAPI.Utils;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
-    using GameCollector.Presentation.WebAPI.Commands.UpdateGameLiveCommand;
 
     /// <summary>
     /// <see cref="GameController"/>
@@ -53,6 +53,53 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         {
             this.mapper = mapper;
             this.mediator = mediator;
+        }
+
+        /// <summary>
+        /// Adds the game to competition asynchronous.
+        /// </summary>
+        /// <param name="filters">The filters.</param>
+        /// <param name="createGameDto">The create game dto.</param>
+        /// <param name="cancelationToken">The cancelation token.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(GameDetailsDto), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> AddGameToCompetitionAsync(
+            [FromQuery] GetByCompetitionIdDto filters,
+            [FromBody] CreateGameDto createGameDto,
+            CancellationToken cancelationToken)
+        {
+            Game game = await this.mediator.Send(new CreateGameCommand
+            {
+                CompetitionId = filters.CompetitionId,
+                TeamAId = createGameDto.TeamAId,
+                TeamBId = createGameDto.TeamBId,
+                StartDate = createGameDto.StartDate,
+            }, cancelationToken);
+
+            return this.Created(string.Empty, this.mapper.Map<GameDetailsDto>(game));
+        }
+
+        /// <summary>
+        /// Deletes the game asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        [HttpDelete("{GameId}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> DeleteGameAsync([FromRoute] GetByGameIdDto filter, CancellationToken cancellationToken)
+        {
+            await this.mediator.Publish(new DeleteGameCommand
+            {
+                GameId = filter.GameId
+            }, cancellationToken);
+
+            return this.Ok();
         }
 
         /// <summary>
@@ -96,26 +143,12 @@ namespace GameCollector.Presentation.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Deletes the game asynchronous.
+        /// Updates the game asynchronous.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filters">The filters.</param>
+        /// <param name="updateGameDto">The update game dto.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
-        [HttpDelete("{GameId}")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> DeleteGameAsync([FromRoute] GetByGameIdDto filter, CancellationToken cancellationToken)
-        {
-            await this.mediator.Publish(new DeleteGameCommand
-            {
-                GameId = filter.GameId
-            }, cancellationToken);
-
-            return this.Ok();
-        }
-
-
         [HttpPut("{GameId}")]
         [ProducesResponseType(typeof(GameDetailsDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
@@ -136,27 +169,13 @@ namespace GameCollector.Presentation.WebAPI.Controllers
             return this.Ok(this.mapper.Map<GameDetailsDto>(game));
         }
 
-
-        [HttpPost]
-        [ProducesResponseType(typeof(GameDetailsDto), (int)HttpStatusCode.Created)]
-        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> AddGameToCompetitionAsync(
-            [FromQuery] GetByCompetitionIdDto filters,
-            [FromBody] CreateGameDto createGameDto,
-            CancellationToken cancelationToken)
-        {
-            Game game = await this.mediator.Send(new CreateGameCommand
-            {
-                CompetitionId = filters.CompetitionId,
-                TeamAId = createGameDto.TeamAId,
-                TeamBId = createGameDto.TeamBId,
-                StartDate = createGameDto.StartDate,
-            }, cancelationToken);
-
-            return this.Created(string.Empty, this.mapper.Map<GameDetailsDto>(game));
-        }
-
+        /// <summary>
+        /// Updates the game live asynchronous.
+        /// </summary>
+        /// <param name="filters">The filters.</param>
+        /// <param name="updateGameLiveDto">The update game live dto.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
         [HttpPut("{GameId}/Live")]
         [ProducesResponseType(typeof(GameDetailsDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]

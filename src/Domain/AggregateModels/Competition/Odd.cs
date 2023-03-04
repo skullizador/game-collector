@@ -66,6 +66,21 @@ namespace GameCollector.Domain.AggregateModels.Competition
         public decimal Value { get; private set; }
 
         /// <summary>
+        /// Updates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <exception cref="InvalidOddException">The odd value shouldn't be lower than 1.</exception>
+        public void Update(decimal value)
+        {
+            if (value < 1)
+            {
+                throw new InvalidOddException("The odd value shouldn't be lower than 1.");
+            }
+
+            this.Value = value;
+        }
+
+        /// <summary>
         /// Sets the team identifier.
         /// </summary>
         /// <param name="teamId">The team identifier.</param>
@@ -80,16 +95,6 @@ namespace GameCollector.Domain.AggregateModels.Competition
             }
 
             this.TeamId = teamId;
-        }
-
-        public void Update(decimal value)
-        {
-            if (value < 1)
-            {
-                throw new InvalidOddException("The odd value shouldn't be lower than 1.")
-            }
-
-            this.Value = value;
         }
 
         /// <summary>

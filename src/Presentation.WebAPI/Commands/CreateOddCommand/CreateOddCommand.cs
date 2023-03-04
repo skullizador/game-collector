@@ -13,15 +13,19 @@ namespace GameCollector.Presentation.WebAPI.Commands.CreateOddCommand
     using GameCollector.Domain.AggregateModels.Competition.Enum;
     using MediatR;
 
-    public class CreateOddCommand : IRequest <Odd>
+    /// <summary>
+    /// <see cref="CreateOddCommand"/>
+    /// </summary>
+    /// <seealso cref="IRequest{Odd}"/>
+    public class CreateOddCommand : IRequest<Odd>
     {
-
-        public Guid GameId { get; init; }
         /// <summary>
         /// Gets the bookmaker identifier.
         /// </summary>
         /// <value>The bookmaker identifier.</value>
         public Guid BookmakerId { get; init; }
+
+        public Guid GameId { get; init; }
 
         /// <summary>
         /// Gets the team identifier.

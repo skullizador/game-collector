@@ -11,6 +11,9 @@ namespace GameCollector.Presentation.WebAPI.Dtos.Input.Competition
 {
     using GameCollector.Domain.AggregateModels.Competition.Enum;
 
+    /// <summary>
+    /// <see cref="CreateOddDto"/>
+    /// </summary>
     public class CreateOddDto
     {
         /// <summary>
