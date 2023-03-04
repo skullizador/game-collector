@@ -10,12 +10,17 @@
 namespace GameCollector.Presentation.WebAPI.Validation.Competition
 {
     using FluentValidation;
-    using GameCollector.Domain.AggregateModels.Competition;
     using GameCollector.Presentation.WebAPI.Dtos.Input.Competition;
-    using System.Runtime.CompilerServices;
 
+    /// <summary>
+    /// <see cref="UpdateOddDtoValidator"/>
+    /// </summary>
+    /// <seealso cref="AbstractValidator{UpdateOddDto}"/>
     public class UpdateOddDtoValidator : AbstractValidator<UpdateOddDto>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpdateOddDtoValidator"/> class.
+        /// </summary>
         public UpdateOddDtoValidator()
         {
             this.RuleFor(x => x.Value)

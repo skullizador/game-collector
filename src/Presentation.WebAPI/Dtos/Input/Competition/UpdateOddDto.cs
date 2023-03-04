@@ -9,8 +9,9 @@
 
 namespace GameCollector.Presentation.WebAPI.Dtos.Input.Competition
 {
-    using GameCollector.Domain.AggregateModels.Competition.Enum;
-
+    /// <summary>
+    /// <see cref="UpdateOddDto"/>
+    /// </summary>
     public class UpdateOddDto
     {
         /// <summary>
@@ -18,6 +19,5 @@ namespace GameCollector.Presentation.WebAPI.Dtos.Input.Competition
         /// </summary>
         /// <value>The value.</value>
         public decimal Value { get; init; }
-
     }
 }
