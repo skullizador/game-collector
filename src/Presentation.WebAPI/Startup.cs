@@ -17,7 +17,6 @@ namespace GameCollector.Presentation.WebAPI
     using GameCollector.Presentation.WebAPI.Configuration;
     using GameCollector.Presentation.WebAPI.Exceptions.Middleware;
     using GameCollector.Presentation.WebAPI.Validation;
-    using MediatR;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
@@ -105,7 +104,10 @@ namespace GameCollector.Presentation.WebAPI
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(opt =>
+            {
+                opt.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            });
 
             services.AddSwaggerGenNewtonsoftSupport();
 
